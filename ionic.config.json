@@ -1,0 +1,7 @@
+{
+  "name": "marmitou",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
