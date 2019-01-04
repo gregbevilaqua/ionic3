@@ -1,0 +1,59 @@
+<!-- -->
+<ion-header class="no-shadow">
+
+  <ion-navbar class="no-border">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <ion-icon name="cog" class="text-primary"></ion-icon>
+      <span class="text-primary">Configurações</span>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="common-bg">
+  <!-- User settings-->
+  <ion-item-group>
+    <ion-item-divider color="secondary" class="bold">Configurações Pessoais</ion-item-divider>
+    <ion-item>
+      <ion-label>Idioma</ion-label>
+      <ion-select [(ngModel)]="language" cancelText="Cancel" okText="OK">
+        <ion-option value="en-US" selected="true">Português do Brasil (PT-BR)</ion-option>
+        <ion-option value="en-GB">English</ion-option>
+        <ion-option value="en-CA">Espanol</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Moeda</ion-label>
+      <ion-select [(ngModel)]="currency" cancelText="Cancel" okText="OK">
+        <ion-option value="USD" selected="true">Real (R$)</ion-option>
+        <ion-option value="EUR">Euro (€)</ion-option>
+        <ion-option value="GBP">U.S Dollar (US$)</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Notificações?</ion-label>
+      <ion-toggle checked="true"></ion-toggle>
+    </ion-item>
+  </ion-item-group>
+  <!-- App settings-->
+  <ion-item-group>
+    <ion-item-divider color="secondary" class="bold">Configurações do App</ion-item-divider>
+    <ion-item>
+      <span>Limpar dados locais</span>
+    </ion-item>
+    <ion-item>
+      <ion-label>Exibir notificações?</ion-label>
+      <ion-toggle checked="false"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <span>Politicas de Privacidade</span>
+    </ion-item>
+  </ion-item-group>  
+
+  <!--sign out button-->
+  <button ion-button color="primary" full tappable (click)="logout()">Sair da Conta</button>
+
+</ion-content>

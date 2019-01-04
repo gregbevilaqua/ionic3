@@ -1,0 +1,79 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Marmitaria</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <div class="geral">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+            <ion-img width="100%" height="200px" src="http://foodtruckceara.com.br/marmitou/assets/img/marmitaria/{{id_marmitaria}}.jpg"></ion-img>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row justify-content-center>
+        <ion-col col-12>
+          <h2 align="center">{{nome_fantasia}}</h2>
+        </ion-col>
+    
+        <ion-col col-12>
+          <h4 align="center" style="margin-top:-5px;margin-bottom: -5px;">{{status}}</h4>
+        </ion-col> 
+      </ion-row>
+
+          <div padding>
+              <ion-segment [(ngModel)]="opcao">
+                <ion-segment-button value="cardapio">
+                  Cardapio
+                </ion-segment-button>
+                <ion-segment-button value="localização">
+                  Localização
+                </ion-segment-button>
+              </ion-segment>
+            </div>
+            
+            <div [ngSwitch]="opcao">
+              <ion-list *ngSwitchCase="'cardapio'">
+                <ion-row>
+                    <ion-item (click)="selecionarMarmita()">
+                        <ion-thumbnail item-start>
+                          <img src="../assets/img/pratos/marmita_completa.jpg">
+                        </ion-thumbnail>
+                        <h2>Marmita Completa</h2>
+                      </ion-item>
+              </ion-row>
+              <ion-row>
+                  <ion-item (click)="selecionarBebida()">
+                      <ion-thumbnail item-start>
+                        <img src="../assets/img/pratos/bebidas.jpg">
+                      </ion-thumbnail>
+                      <h2>Bebida</h2>
+                    </ion-item>
+                </ion-row>
+                <ion-row>
+                    <ion-item (click)="selecionarSobremesa()">
+                        <ion-thumbnail item-start>
+                          <img src="../assets/img/pratos/sobremesa.jpg">
+                        </ion-thumbnail>
+                        <h2>Sobremesa</h2>
+                      </ion-item>
+                  </ion-row>
+
+              </ion-list>
+            
+              <ion-list *ngSwitchCase="'localização'">
+                <ion-item>
+                  MAPA
+                </ion-item>
+                ...
+              </ion-list>
+            </div>
+    
+    </ion-grid>
+  </div>
+
+</ion-content>

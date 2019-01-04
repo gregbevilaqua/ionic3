@@ -1,3 +1,23 @@
-page-home {
+page-home,
+.home {
+  ion-content{
+    background-color: white;
+  }
+  ion-list {
+    overflow: hidden;
+
+    ion-item,
+    .item:first-child,
+    .item:last-child {
+      border: none;
+    }
+
+    ion-datetime {
+      padding-left: 0;
+    }    
+  } 
+  ion-card {
+    width: 95%;
+  }
 
 }

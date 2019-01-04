@@ -1,14 +1,134 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
-      Ionic Blank
+      <strong>Marmitou?</strong>Chegou!
     </ion-title>
+    <ion-buttons end>
+      <button ion-button tappable (click)="presentNotifications($event)">
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+      <button ion-button tappable (click)="goToAccount()">
+        <ion-icon name="cog"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding class="animated fadeIn common-bg">
+  <div class="geral">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h3 style="margin-top:10px">Novidades</h3><hr>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-slides style="">
+            <ion-slide>
+              <ion-card style="">
+                <img src="http://foodtruckceara.com.br/marmitou/assets/img/marmitaria/1.jpg"/>
+                <ion-card-content>
+                  <ion-card-title>
+                    Melhor preço do Mercado
+                  </ion-card-title>
+                  <p>
+                    The most popular industrial group ever, and largely.
+                  </p>
+                </ion-card-content>
+              </ion-card>
+            </ion-slide>
+            
+            <ion-slide style="">
+              <ion-card>
+                <img src="http://foodtruckceara.com.br/marmitou/assets/img/marmitaria/2.jpg"/>
+                <ion-card-content>
+                  <ion-card-title>
+                    Variedade incomparável
+                  </ion-card-title>
+                  <p>
+                    The most popular industrial group ever, and largely.
+                  </p>
+                </ion-card-content>
+              </ion-card>
+            </ion-slide>
+            
+            <ion-slide style="">
+                <ion-card>
+                    <img src="http://foodtruckceara.com.br/marmitou/assets/img/marmitaria/2.jpg"/>
+                    <ion-card-content>
+                      <ion-card-title>
+                        Preço acessível
+                      </ion-card-title>
+                      <p>
+                        The most popular industrial group ever, and largely.
+                      </p>
+                    </ion-card-content>
+                  </ion-card>
+            </ion-slide>
+          </ion-slides>
+        </ion-col>
+      </ion-row>
+
+
+  <!--<h3 style="margin-top:10px">Destaques</h3>
+  <ion-card>
+    <ion-card-content>
+      <ion-slides pager class="pager-inner">
+        <ion-slide *ngFor="let slide of slides">
+          <img src="{{ slide.src }}" alt="">
+        </ion-slide>
+    </ion-slides>
+    </ion-card-content>
+</ion-card>-->
+
+  <!--<ion-item padding color="light"  class="no-border" (click)="goToNearBy()">
+    <ion-icon name="pin"></ion-icon>
+      Pesquisar nas proximidades
+    <ion-icon name="arrow-forward" color="secondary"  class="pull-right"></ion-icon>
+</ion-item>-->
+
+<div style="width: 120%; background-color:#f7f7f7;height: 5px;"></div>
+
+<ion-row style="margin-bottom:-15px;">
+  <ion-col>
+    <h3 style="margin-top:10px;">Restaurantes</h3><hr>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-list>
+      <p *ngFor="let u of marmitaria">
+        <ion-item (click)="selecionarMarmitaria(u.id_marmitaria,u.nome_fantasia,u.status)">
+          <ion-avatar item-start>
+            <img src="http://foodtruckceara.com.br/marmitou/assets/img/marmitaria/{{u.id_marmitaria}}.jpg"/>
+          </ion-avatar>
+          <h2>{{u.nome_fantasia}}</h2>
+          <p>{{u.endereco}}</p>
+        </ion-item>
+        <!--<ion-item-options side="left">
+          <button ion-button color="primary">
+            <ion-icon name="text"></ion-icon>
+            Text
+          </button>
+          <button ion-button color="secondary">
+            <ion-icon name="call"></ion-icon>
+            Call
+          </button>
+      </ion-item-options>-->
+    </ion-list>
+  </ion-col>
+</ion-row>
+</ion-grid>
+</div>
+
+<ion-fab right bottom>
+  <button ion-fab color="light"><ion-icon name="md-locate"></ion-icon></button>
+</ion-fab>
+
 </ion-content>
+  
+  

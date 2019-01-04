@@ -1,0 +1,84 @@
+<!-- -->
+<ion-content padding class="animated fadeIn login auth-page">
+  <div class="login-content">
+
+    <!-- Logo -->
+    <div padding-horizontal text-center class="animated fadeInDown">
+      <div class="logo"></div>
+      <h2 ion-text class="text-primary">
+        <strong>Marmitou?</strong> Chegou!
+      </h2>
+    </div>
+
+    <!-- Login form -->
+    <form class="list-form" [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="mail" item-start class="text-primary"></ion-icon>
+          E-mail
+        </ion-label>
+        <ion-input #email formControlName="email" name="email" type="email" [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.dirty"></ion-input>
+      </ion-item>
+      <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && loginForm.controls.email.dirty">
+        <p>Digite um email válido.</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+          Senha
+        </ion-label>
+        <ion-input #password formControlName="password" name="senha" type="password" [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty"></ion-input>
+      </ion-item>
+      <ion-item class="error-message"*ngIf="!loginForm.controls.password.valid  && loginForm.controls.password.dirty">
+        <p>Sua senha deve ter no mínimo 6 caracteres.</p>
+      </ion-item>
+
+      <button ion-button icon-start block color="dark" block type="submit">
+        <ion-icon name="log-in"></ion-icon>Login
+      </button>
+
+      <button ion-button block clear (click)="goToSignup()">
+        Crie sua conta
+      </button>
+<!--
+            <button ion-button block clear (click)="goToResetPassword()">
+              I forgot my password
+            </button>
+      -->
+    </form>
+
+    <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>Esqueceu a Senha?</strong></p>
+
+    <div>
+
+      <p text-center ion-text color="secondary"><b>Faça o login mais prático:</b></p>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4>
+            <button ion-button icon-only block class="btn-facebook">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col col-4>
+            <button ion-button icon-only block class="btn-twitter">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col col-4>
+            <button ion-button icon-only block class="btn-gplus">
+              <ion-icon name="logo-googleplus"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+    <!-- Other links -->
+    <div text-center margin-top>
+      <span ion-text color="secondary" tappable (click)="register()">Ou então <strong>Cadastre-se</strong></span>
+    </div>
+
+  </div>
+</ion-content>
