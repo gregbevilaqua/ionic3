@@ -15,6 +15,7 @@ import {SettingsPage} from "../pages/settings/settings";
 import {InfoPage} from "../pages/info/info";
 
 import { AngularFireAuth } from '@angular/fire/auth';
+import { ConsumoProvider } from "../providers/consumo/consumo";
  
 export interface MenuItem {
     title: string;
@@ -23,12 +24,15 @@ export interface MenuItem {
 }
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [
+    ConsumoProvider
+  ]
 })
 
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = TutorialPage;
+  rootPage: any = HomePage;
   Page;
   appMenuItems: Array<MenuItem>;
 
@@ -37,7 +41,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public keyboard: Keyboard,
-    public afData: AngularFireAuth
+    public afData: AngularFireAuth,
+    public consumoProvider: ConsumoProvider
   ){
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -55,7 +60,9 @@ export class MyApp {
       {title: 'Info', component: InfoPage, icon: 'information-circle'}
     ];
   }
+  ionViewDidLoad(){
 
+  }
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario

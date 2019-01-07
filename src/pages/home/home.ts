@@ -9,18 +9,17 @@ import {MarmitariaInfoPage} from "../marmitaria-info/marmitaria-info";
 
 import { Http /*Response */} from '@angular/http';
 import 'rxjs/add/operator/map';
+import { ConsumoProvider } from "../../providers/consumo/consumo";
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+  providers: [
+    ConsumoProvider
+  ]
 })
 
 export class HomePage {
-  // search condition
-  public search = {
-    name: "Rio de Janeiro, Brazil",
-    date: new Date().toISOString()
-  }
   public slides = [
     {
       src: 'assets/img/bugger.jpg'
@@ -33,29 +32,32 @@ export class HomePage {
     }
   ];
 
-  private url:string = 'http://foodtruckceara.com.br/marmitou/api/apiRecupera.php';
   public marmitaria: Array<{}>
 
   constructor(
               public nav: NavController, 
               public popoverCtrl: PopoverController,
               public navParams: NavParams,
-              public http: Http
+              public http: Http,
+              public consumoProvider: ConsumoProvider
             ){
               let id = navParams.get('id');
               let nome = navParams.get('nome');
-
-              this.http.get(this.url + '?token=1f3d2gs3f2fg3as2fdg3re2t1we46er45')
-              .map(res => res.json())
-              .subscribe(data => {
-                //console.log(data);
-                this.marmitaria = data;               
-              })
   }
 
-  // go to result page
-  doSearch() {
-    //this.nav.push(TripsPage);
+  ionViewDidLoad(){
+    this.consumoProvider.getMarmitarias().subscribe(
+      data=>{
+        this.marmitaria = (data as any);
+      }
+    );
+    this.consumoProvider.getUsuario("gregbevilaqua@gmail.com").subscribe(
+      data=>{
+        const usuario = (data as any);
+        console.log(usuario);
+      }
+    );
+
   }
 
   // choose place

@@ -4,6 +4,7 @@ import {ProdutoPage} from "../produto/produto";
 
 import { Http /*Response */} from '@angular/http';
 import 'rxjs/add/operator/map';
+import { ConsumoProvider } from '../../providers/consumo/consumo';
 
 /**
  * Generated class for the MarmitariaInfoPage page.
@@ -16,12 +17,13 @@ import 'rxjs/add/operator/map';
 @Component({
   selector: 'page-marmitaria-info',
   templateUrl: 'marmitaria-info.html',
+  providers: [
+    ConsumoProvider
+  ]
 })
 export class MarmitariaInfoPage {
-  //pet: string = "puppies";
+
   opcao: string = "cardapio";
-  //private url:string = 'http://foodtruckceara.com.br/marmitou/api/recuperaMarmitaria.php';
-  //public marmitaria: Array<{}>
   public id_marmitaria: any;
   public nome_fantasia: any;
   public status: any;
@@ -29,6 +31,7 @@ export class MarmitariaInfoPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    private ConsumoProvider: ConsumoProvider,
     public http: Http
     ) {
       this.id_marmitaria = navParams.get('id');
@@ -43,7 +46,13 @@ export class MarmitariaInfoPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MarmitariaInfoPage');
+    this.ConsumoProvider.getMarmitaria(this.id_marmitaria).subscribe(
+      data=>{
+        const resposta = (data as any);
+        //console.log(resposta);
+      }, error => {
+        console.log("erro foda");
+      });
   }
 
   selecionarMarmita(){

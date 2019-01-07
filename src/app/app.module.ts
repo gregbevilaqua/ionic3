@@ -38,6 +38,7 @@ import {SignupPage} from "../pages/signup/signup";
 
 
 import { AuthData } from '../providers/auth-data';
+import { ConsumoProvider } from '../providers/consumo/consumo';
  
 // import services
 // end import services
@@ -99,7 +100,8 @@ import { AuthData } from '../providers/auth-data';
     ActivityService,
     TripService,
     WeatherProvider,
-    AngularFireAuth
+    AngularFireAuth,
+    ConsumoProvider
   ]
 })
 
