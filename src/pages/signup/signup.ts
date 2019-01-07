@@ -35,9 +35,9 @@ export class SignupPage {
         })
     }
 
-    signupUser(email,password) {
+    signupUser() {
         //console.log(email.value);
-        this.afData.auth.createUserWithEmailAndPassword(email.value, password.value)
+        this.afData.auth.createUserWithEmailAndPassword(this.signupForm.value.email,this.signupForm.value.password)
             .then((response) => {
                 this.presentAlert('Usuário Cadastrado', 'Parabéns você já tem acesso ao aplicativo.');
                 this.nav.push(LoginPage);

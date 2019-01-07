@@ -12,7 +12,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { EmailValidator } from '../../providers/email';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+//import { auth } from 'firebase/app';
 
 @Component({
   selector: 'page-login',
@@ -41,8 +41,8 @@ export class LoginPage {
               });
   }
 
-  loginUser(email,senha){
-    this.afData.auth.signInWithEmailAndPassword(email.value, senha.value)
+  loginUser(){
+    this.afData.auth.signInWithEmailAndPassword(this.loginForm.value.email, this.loginForm.value.password)
     .then((response) => {
         this.nav.setRoot(HomePage);
     })

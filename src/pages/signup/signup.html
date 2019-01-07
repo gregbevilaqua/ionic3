@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <form [formGroup]="signupForm" (ngSubmit)="signupUser(email,password)" novalidate>
+  <form [formGroup]="signupForm" (ngSubmit)="signupUser()" novalidate>
     <ion-item>
       <ion-label stacked>Email</ion-label>
       <ion-input #email formControlName="email" type="text" placeholder="Digite seu email" 
