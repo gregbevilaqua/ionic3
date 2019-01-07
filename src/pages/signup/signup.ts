@@ -5,7 +5,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth-data';
 import { EmailValidator } from '../../providers/email';
 
-import {HomePage}from'../home/home';
+//import {HomePage}from'../home/home';
+
+import { AngularFireAuth } from '@angular/fire/auth';
+import { LoginPage } from '../login/login';
+//import { auth } from 'firebase/app';
 
 @IonicPage()
 @Component({
@@ -14,14 +18,15 @@ import {HomePage}from'../home/home';
 })
 export class SignupPage {
 
-  public signupForm;
+    public signupForm;
     loading: any;
 
     constructor(public nav: NavController,
                 public authData: AuthData,
                 public formBuilder: FormBuilder, 
                 public loadingCtrl: LoadingController,
-                public alertCtrl: AlertController) 
+                public alertCtrl: AlertController,
+                public afData: AngularFireAuth) 
                 {
 
         this.signupForm = formBuilder.group({
@@ -30,32 +35,26 @@ export class SignupPage {
         })
     }
 
-    signupUser() {
-      if (!this.signupForm.valid) {
-          console.log(this.signupForm.value);
-      } else {
-          this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password)
-              .then(() => {
-                  this.loading.dismiss().then(() => {
-                      //alert("Conta criada");
-                      this.nav.setRoot(HomePage);
-                  });
-              }, (error) => {
-                  this.loading.dismiss().then(() => {
-                      let alert = this.alertCtrl.create({
-                          message: error.message,
-                          buttons: [
-                              {
-                                  text: "Ok",
-                                  role: 'cancel'
-                              }
-                          ]
-                      });
-                      alert.present();
-                  });
-              });
-          this.loading = this.loadingCtrl.create();
-          this.loading.present();
-      }
+    signupUser(email,password) {
+        //console.log(email.value);
+        this.afData.auth.createUserWithEmailAndPassword(email.value, password.value)
+            .then((response) => {
+                this.presentAlert('Usuário Cadastrado', 'Parabéns você já tem acesso ao aplicativo.');
+                this.nav.push(LoginPage);
+            })
+            .catch((error) => {
+                if(error.code == 'auth/email-already-in-use'){
+                    this.presentAlert('Erro','E-mail já cadastrado em nossa base');
+                }
+            })
+    }
+
+    presentAlert(title: string, subtitle: string){
+        let alert = this.alertCtrl.create({
+            title: title,
+            subTitle: subtitle,
+            buttons: ['OK']
+        });
+        alert.present();
     }
 }

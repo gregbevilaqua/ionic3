@@ -7,19 +7,18 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthData } from '../../providers/auth-data';
+//import { AuthData } from '../../providers/auth-data';
+
 import { EmailValidator } from '../../providers/email';
+
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
-
-  /*private credential: Object = {
-    email:'',
-    senha:''
-  }*/
   public loginForm;
   loading: any;
 
@@ -33,7 +32,7 @@ export class LoginPage {
               public navCtrl: NavController, 
               public formBuilder: FormBuilder,
               public loadingCtrl: LoadingController,
-              public authData: AuthData
+              public afData: AngularFireAuth
             ){
                 this.menu.swipeEnable(false);
                 this.loginForm = formBuilder.group({
@@ -42,33 +41,32 @@ export class LoginPage {
               });
   }
 
-  loginUser(): void {
-    if (!this.loginForm.valid) {
-        console.log(this.loginForm.value);
-    } else {
-        this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password).then(authData => {
-            this.loading.dismiss().then(() => {
-                this.nav.setRoot(HomePage);
-            });
-        }, error => {
-            this.loading.dismiss().then(() => {
-                let alert = this.alertCtrl.create({
-                    message: error.message,
-                    buttons: [
-                        {
-                            text: "Ok",
-                            role: 'cancel'
-                        }
-                    ]
-                });
-                alert.present();
-            });
-        });
-
-        this.loading = this.loadingCtrl.create();
-        this.loading.present();
-    }
+  loginUser(email,senha){
+    this.afData.auth.signInWithEmailAndPassword(email.value, senha.value)
+    .then((response) => {
+        this.nav.setRoot(HomePage);
+    })
+    .catch((error) => {
+      if(error.code == 'auth/wrong-password'){
+        this.presentAlert('Erro','A senha digitada está incorreta');
+        this.loginForm.controls['password'].setValue(null);
+      }else if(error.code == 'auth/user-not-found'){
+        this.presentAlert('Erro','Usuário não encontrado');
+      }else if(error.code == 'auth/user-disabled'){
+        this.presentAlert('Erro','Usuário desabilitado temporariamente');
+      }
+      
+    })
   }
+
+  presentAlert(title: string, subtitle: string){
+    let alert = this.alertCtrl.create({
+        title: title,
+        subTitle: subtitle,
+        buttons: ['OK']
+    });
+    alert.present();
+}
 
   goToSignup(): void {
       this.nav.push(SignupPage);

@@ -11,7 +11,7 @@
     </div>
 
     <!-- Login form -->
-    <form class="list-form" [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+    <form class="list-form" [formGroup]="loginForm" (ngSubmit)="loginUser(email,password)" novalidate>
       <ion-item>
         <ion-label floating>
           <ion-icon name="mail" item-start class="text-primary"></ion-icon>
@@ -28,7 +28,7 @@
           <ion-icon name="lock" item-start class="text-primary"></ion-icon>
           Senha
         </ion-label>
-        <ion-input #password formControlName="password" name="senha" type="password" [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty"></ion-input>
+        <ion-input #password formControlName="password" name="password" type="password" [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty"></ion-input>
       </ion-item>
       <ion-item class="error-message"*ngIf="!loginForm.controls.password.valid  && loginForm.controls.password.dirty">
         <p>Sua senha deve ter no mínimo 6 caracteres.</p>

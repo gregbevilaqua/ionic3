@@ -4,6 +4,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {IonicStorageModule} from '@ionic/storage';
 
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../pages/environments/environment';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 import { HttpModule } from '@angular/http';
 
 import {StatusBar} from '@ionic-native/status-bar';
@@ -65,6 +69,7 @@ import { AuthData } from '../providers/auth-data';
     BrowserModule,
     HttpClientModule,
     HttpModule,
+    AngularFireModule.initializeApp(environment.firebase),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -93,7 +98,8 @@ import { AuthData } from '../providers/auth-data';
     Keyboard,
     ActivityService,
     TripService,
-    WeatherProvider
+    WeatherProvider,
+    AngularFireAuth
   ]
 })
 
