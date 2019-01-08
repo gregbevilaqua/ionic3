@@ -55,7 +55,6 @@ export class MyApp {
     public events: Events
   ){
     events.subscribe('user:created', (user, time) => {
-      console.log('Welcome', user, 'at', time);
       this.consumoProvider.pesquisarUsuario(user).subscribe(
         data=>{
           const usuario = (data as any);
@@ -63,7 +62,6 @@ export class MyApp {
         }
       );
       this.usuario = this.consumoProvider.getUsuario();
-      //console.log(this.usuario[0].nome);
     });
 
     platform.ready().then(() => {

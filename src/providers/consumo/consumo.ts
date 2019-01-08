@@ -17,7 +17,7 @@ export class ConsumoProvider {
   email="";
 
   constructor(public http: HttpClient) {
-    console.log('Hello ConsumoProvider Provider');
+    //console.log('Hello ConsumoProvider Provider');
   }
 
   pesquisarUsuario(email){
