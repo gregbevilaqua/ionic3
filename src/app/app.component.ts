@@ -35,6 +35,7 @@ export class MyApp {
   rootPage: any = TutorialPage;
   Page;
   appMenuItems: Array<MenuItem>;
+  nomePadrao="Sem nome";
   usuario = [
     {
       'id_usuario':0,
@@ -62,6 +63,7 @@ export class MyApp {
         }
       );
       this.usuario = this.consumoProvider.getUsuario();
+      //this.usuario[0].nome=;
     });
 
     platform.ready().then(() => {

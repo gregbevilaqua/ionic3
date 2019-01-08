@@ -8,9 +8,9 @@ export class ConsumoProvider {
   usuarioL = [
     {
       'id_usuario':0,
-      'nome':"",
+      'nome':"Como prefere ser chamado?",
       'endereco':"",
-      'cpf':"",
+      'cpf':"__.__.__-_",
       'telefone':""
     }
   ];
@@ -38,6 +38,9 @@ export class ConsumoProvider {
   }
   getMarmitaria(idMarmitaria){
     return this.http.get(this.baseApiPath + "recuperaMarmitaria.php?token="+this.token+"&id_marmitaria="+idMarmitaria);
+  }
+  cadastraUsuarioApi(nome, cpf, email, senha){
+    return this.http.get(this.baseApiPath+"cadastrarUsuarioApi.php?token="+this.token+"&nome="+nome+"&cpf="+cpf+"&email="+email+"&senha="+senha);
   }
 
 }

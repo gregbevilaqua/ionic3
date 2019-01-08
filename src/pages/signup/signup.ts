@@ -9,6 +9,7 @@ import { EmailValidator } from '../../providers/email';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoginPage } from '../login/login';
+import { ConsumoProvider } from '../../providers/consumo/consumo';
 //import { auth } from 'firebase/app';
 
 @IonicPage()
@@ -26,10 +27,14 @@ export class SignupPage {
                 public formBuilder: FormBuilder, 
                 public loadingCtrl: LoadingController,
                 public alertCtrl: AlertController,
-                public afData: AngularFireAuth) 
+                public afData: AngularFireAuth,
+                public consumoProvider: ConsumoProvider,
+                ) 
                 {
 
         this.signupForm = formBuilder.group({
+            nome: ['', Validators.compose([Validators.minLength(6), Validators.required])],
+            cpf: ['', Validators.compose([Validators.minLength(6), Validators.required])],
             email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
             password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
         })
@@ -37,6 +42,7 @@ export class SignupPage {
 
     signupUser() {
         //console.log(email.value);
+        this.consumoProvider.cadastraUsuarioApi(this.signupForm.value.nome,this.signupForm.value.cpf,this.signupForm.value.email,this.signupForm.value.password).subscribe(); 
         this.afData.auth.createUserWithEmailAndPassword(this.signupForm.value.email,this.signupForm.value.password)
             .then((response) => {
                 this.presentAlert('Usuário Cadastrado', 'Parabéns você já tem acesso ao aplicativo.');
