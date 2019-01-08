@@ -5,13 +5,33 @@ import { Injectable } from '@angular/core';
 export class ConsumoProvider {
   baseApiPath="http://foodtruckceara.com.br/marmitou/api/";
   token="1f3d2gs3f2fg3as2fdg3re2t1we46er45";
+  usuarioL = [
+    {
+      'id_usuario':0,
+      'nome':"",
+      'endereco':"",
+      'cpf':"",
+      'telefone':""
+    }
+  ];
+  email="";
 
   constructor(public http: HttpClient) {
     console.log('Hello ConsumoProvider Provider');
   }
 
-  getUsuario(email){
+  pesquisarUsuario(email){
     return this.http.get(this.baseApiPath+"recuperaUsuario.php?token="+this.token+"&email="+email);
+  }
+  setUsuario(usuario){
+    this.usuarioL[0].id_usuario = usuario[0].id_cliente;
+    this.usuarioL[0].nome = usuario[0].nome;
+    this.usuarioL[0].cpf = usuario[0].cpf;
+    this.usuarioL[0].endereco = usuario[0].endereco;
+    this.usuarioL[0].telefone = usuario[0].telefone;
+  }
+  getUsuario(){
+    return this.usuarioL;
   }
   getMarmitarias(){
     return this.http.get(this.baseApiPath+"recuperaMarmitarias.php?token="+this.token);

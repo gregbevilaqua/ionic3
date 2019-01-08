@@ -10,6 +10,7 @@ import {MarmitariaInfoPage} from "../marmitaria-info/marmitaria-info";
 import { Http /*Response */} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { ConsumoProvider } from "../../providers/consumo/consumo";
+//import { MyApp } from "../../app/app.component";
 
 @Component({
   selector: 'page-home',
@@ -39,10 +40,9 @@ export class HomePage {
               public popoverCtrl: PopoverController,
               public navParams: NavParams,
               public http: Http,
-              public consumoProvider: ConsumoProvider
+              public consumoProvider: ConsumoProvider 
             ){
-              let id = navParams.get('id');
-              let nome = navParams.get('nome');
+
   }
 
   ionViewDidLoad(){
@@ -51,13 +51,6 @@ export class HomePage {
         this.marmitaria = (data as any);
       }
     );
-    this.consumoProvider.getUsuario("gregbevilaqua@gmail.com").subscribe(
-      data=>{
-        const usuario = (data as any);
-        console.log(usuario);
-      }
-    );
-
   }
 
   // choose place

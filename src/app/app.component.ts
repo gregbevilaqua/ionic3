@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { Platform, Nav } from "ionic-angular";
+import { Platform, Nav, Events } from "ionic-angular";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,9 +32,18 @@ export interface MenuItem {
 
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = HomePage;
+  rootPage: any = TutorialPage;
   Page;
   appMenuItems: Array<MenuItem>;
+  usuario = [
+    {
+      'id_usuario':0,
+      'nome':"",
+      'endereco':"",
+      'cpf':"",
+      'telefone':""
+    }
+  ];
 
   constructor(
     public platform: Platform,
@@ -42,8 +51,21 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public keyboard: Keyboard,
     public afData: AngularFireAuth,
-    public consumoProvider: ConsumoProvider
+    public consumoProvider: ConsumoProvider,
+    public events: Events
   ){
+    events.subscribe('user:created', (user, time) => {
+      console.log('Welcome', user, 'at', time);
+      this.consumoProvider.pesquisarUsuario(user).subscribe(
+        data=>{
+          const usuario = (data as any);
+          this.consumoProvider.setUsuario(usuario);
+        }
+      );
+      this.usuario = this.consumoProvider.getUsuario();
+      //console.log(this.usuario[0].nome);
+    });
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -60,8 +82,10 @@ export class MyApp {
       {title: 'Info', component: InfoPage, icon: 'information-circle'}
     ];
   }
-  ionViewDidLoad(){
 
+  ionViewDidLoad(){
+    //this.usuario = this.consumoProvider.getUsuario();
+    //console.log(this.usuario[0]);
   }
   openPage(page) {
     // Reset the content nav to have just this page

@@ -36,17 +36,9 @@ import {MarmitariaInfoPage} from "../pages/marmitaria-info/marmitaria-info";
 import {ProdutoPage} from "../pages/produto/produto";
 import {SignupPage} from "../pages/signup/signup";
 
-
 import { AuthData } from '../providers/auth-data';
 import { ConsumoProvider } from '../providers/consumo/consumo';
  
-// import services
-// end import services
-// end import services
-
-// import pages
-// end import pages
-
 @NgModule({
   declarations: [
     MyApp,

@@ -12,7 +12,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { EmailValidator } from '../../providers/email';
 
 import { AngularFireAuth } from '@angular/fire/auth';
+import { ConsumoProvider } from "../../providers/consumo/consumo";
 //import { auth } from 'firebase/app';
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-login',
@@ -32,7 +34,9 @@ export class LoginPage {
               public navCtrl: NavController, 
               public formBuilder: FormBuilder,
               public loadingCtrl: LoadingController,
-              public afData: AngularFireAuth
+              public afData: AngularFireAuth,
+              public consumoProvider: ConsumoProvider,
+              public events: Events
             ){
                 this.menu.swipeEnable(false);
                 this.loginForm = formBuilder.group({
@@ -41,10 +45,16 @@ export class LoginPage {
               });
   }
 
+  createUser(user) {
+    this.events.publish('user:created', user, Date.now());
+  }
+
   loginUser(){
     this.afData.auth.signInWithEmailAndPassword(this.loginForm.value.email, this.loginForm.value.password)
     .then((response) => {
-        this.nav.setRoot(HomePage);
+      this.createUser(this.loginForm.value.email);
+      this.consumoProvider.email = this.loginForm.value.email;
+      this.nav.setRoot(HomePage);
     })
     .catch((error) => {
       if(error.code == 'auth/wrong-password'){
